@@ -1,0 +1,17 @@
+for python:
+    def test(i):
+        print(i)
+        test(i+1)
+    test(0)
+    // final output 998
+
+for C++:
+    void test(i) {
+        cout << i << endl;
+        test(i+1);
+    }
+    test(0);
+    // final output 64893
+
+C++ is ridiculously more endurable than python
+When facing stack overflow in python (i.e DFS), just switch to C++
