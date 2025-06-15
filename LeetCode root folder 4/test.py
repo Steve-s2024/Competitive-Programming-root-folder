@@ -1,48 +1,43 @@
-# ████████╗██╗███╗░░██╗  ██╗░░░░░███████╗
-# ╚══██╔══╝██║████╗░██║  ██║░░░░░██╔════╝
-# ░░░██║░░░██║██╔██╗██║  ██║░░░░░█████╗░░
-# ░░░██║░░░██║██║╚████║  ██║░░░░░██╔══╝░░
-# ░░░██║░░░██║██║░╚███║  ███████╗███████╗
-# ░░░╚═╝░░░╚═╝╚═╝░░╚══╝  ╚══════╝╚══════╝
-#   __________________
-#  | ________________ |
-#  ||          ____  ||
-#  ||   /\    |      ||
-#  ||  /__\   |      ||
-#  || /    \  |____  ||
-#  ||________________||
-#  |__________________|
-#  \###################\
-#   \###################\
-#    \        ____       \
-#     \_______\___\_______\
-# An AC a day keeps the doctor away. (tin_le)
+'''wow'''
+'''
+  __________________
+ | ________________ |
+ ||          ____  ||
+ ||   /\    |      ||
+ ||  /__\   |      ||
+ || /    \  |____  ||
+ ||________________||
+ |__________________|
+ \###################\
+  \###################\
+   \        ____       \
+    \_______\___\_______\
+An AC a day keeps the doctor away. (tin_le)
+'''
 
 from collections import defaultdict, deque, Counter
-import heapq, cmath
+from typing import List
+from sortedcontainers import SortedList
+import heapq, cmath, sys
+sys.setrecursionlimit(1 << 15)
 
 
 class Solution:
-    def minHeightShelves(self, books: List[List[int]], shelfWidth: int) -> int:
-        n = len(books)
-        def recursive(i, width):
-            nonlocal n, shelfWidth
-            if i >= n:
-                return 0, 0
-            res = float('inf')
-            maxH = float('inf')
-            w, h = books[i]
-            if width+w <= shelfWidth:
-                tot, hei = recursive(i+1, width+w)
-                maxH = max(hei, h)
-                res = tot
+    def constrainedSubsetSum(self, nums: List[int], k: int) -> int:
+        n = len(nums)
+        dp = [0]*n
+        q = deque()
+        maxHeap = []
+        mp = defaultdict(int)
+        for i in range(n-1, -1, -1):
+            while maxHeap and mp[-maxHeap[0]] == 0: heapq.heappop(maxHeap)
+            if maxHeap and -maxHeap[0] > 0:
+                dp[i] += -maxHeap[0]
+            dp[i] += nums[i]
+            heapq.heappush(maxHeap, -nums[i])
+            q.append(nums[i])
+            mp[nums[i]] += 1
 
-                tot, hei = recursive(i+1, 0)
-                if tot+hei+h < res+maxH:
-                    maxH = h
-                    res = tot+hei
-
-            return res, maxH
-
-        return recursive(0, 0)
-
+            if len(q) >= k:
+                mp[q.popleft()] -= 1
+        print(dp)

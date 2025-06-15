@@ -7,6 +7,8 @@
 # string between target and pattern, and if conflict happens, you use the table to reassign the longest prefix that is
 # not the conflicting prefix"
 
+
+
 def build(p):
     n = len(p)
     length = 0
@@ -18,6 +20,7 @@ def build(p):
             length += 1
             lps[i] = length
     return lps
+
 
 def check(s, p):
     lps = build(p)

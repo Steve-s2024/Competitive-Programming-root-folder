@@ -1,43 +1,28 @@
-import sys
-import heapq, math
-from collections import defaultdict, deque, Counter
 
 def solve():
-    n = int(input())
-    s = input()
+    n, q = [int(e) for e in input().split()]
+    nums = [int(e) for e in input().split()]
 
+    for i in range(q):
+        i, x = [int(e) for e in input().split()]
+        nums[i-1] = x
+        sm = sum(nums)
+        incre = True
+        i = 1
+        while i < n:
+            a, b = nums[i - 1], nums[i]
+            if b - a > 0:
+                incre = True
+                l = i
+            elif b - a < 0:
+                if incre:
+                    sm -= a
+                    incre = False
 
-    res = 0
-    aMp = {}
-    cMp = {}
-    a = 0
-    for i in range(n):
-        if s[i] == 'B':
-            aMp[i] = a
-        elif s[i] == 'A':
-            a+=1
-        else:
-            a=0
-
-    c = 0
-    for i in range(n-1, -1, -1):
-        if s[i] == 'B':
-            cMp[i] = c
-        elif s[i] == 'C':
-            c+=1
-        else:
-            c=0
-
-    for i in range(n):
-        if s[i] != 'B':
-            continue
-        res += max(aMp[i], cMp[i])
-
-
-
-    print(res)
-
-
+            i += 1
+        if incre:
+            sm -= nums[-1]
+        print(sm)
 
 
 
