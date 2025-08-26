@@ -1,31 +1,36 @@
+from collections import defaultdict, deque, Counter
+from typing import List
+import heapq, sys
+from math import gcd, lcm, inf, sqrt
+from functools import cache
+sys.setrecursionlimit(1 << 20)
 
-def solve():
-    n, q = [int(e) for e in input().split()]
-    nums = [int(e) for e in input().split()]
-
-    for i in range(q):
-        i, x = [int(e) for e in input().split()]
-        nums[i-1] = x
-        sm = sum(nums)
-        incre = True
-        i = 1
-        while i < n:
-            a, b = nums[i - 1], nums[i]
-            if b - a > 0:
-                incre = True
-                l = i
-            elif b - a < 0:
-                if incre:
-                    sm -= a
-                    incre = False
-
-            i += 1
-        if incre:
-            sm -= nums[-1]
-        print(sm)
+n = 100
+vis = set()
+minheap = [(0, 1, 0)]
+while minheap:
+    _, node, par = heapq.heappop(minheap)
+    if node in vis: continue
+    vis.add(node)
+    print(f'{str(bin(par))[2:].zfill(8)} --> {str(bin(node))[2:].zfill(8)}')
+    # print(f'{par} --> {node}')
+    for cand in range(1, n+1):
+        if cand not in vis:
+            heapq.heappush(minheap, (cand^node, cand, node))
 
 
 
-t = int(input())
-for i in range(t):
-    solve()
+
+
+
+
+# def solve():
+#     n = int(input())
+#
+#
+#
+#
+# t = int(input())
+# for i in range(t):
+#     solve()
+

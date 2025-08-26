@@ -1,7 +1,8 @@
 # holy shit it's not easy at all to come to this solution, even though all I did
-# is to convert the recursive dfs to iterative dfs, and add another min and max heap.
+# was to convert the recursive dfs to iterative dfs, and add another min and max heap.
 # my god this could be the most complicated implementation I have ever completed in a
 # contest, little time do I have but thank god I finished it after so many wrong answers
+# now in retrospect, all i need is sys.setrecursionlimit(1<<20) haha.
 from collections import defaultdict, deque, Counter
 import heapq, math
 import sys

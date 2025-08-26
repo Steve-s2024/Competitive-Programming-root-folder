@@ -98,7 +98,60 @@ print(
 )
 
 
+# an array sum segment tree implementation
+'''
+# 1. build
+def build(l, r, inputArr):
+    if l >= r:
+        val = [0] * 6
+        val[inputArr[l]] = 1
+        return TreeNode(val)
+    m = (l + r) // 2
+    a = build(l, m, inputArr)
+    b = build(m + 1, r, inputArr)
+    val = [0] * 6
+    for i in range(6):
+        val[i] += a.val[i]
+        val[i] += b.val[i]
 
+    return TreeNode(
+        val,
+        a,
+        b
+    )
+
+
+# 2. update
+def update(node, i, val, oldVal, l, r):
+    if l == r == i:
+        node.val[oldVal] -= 1
+        node.val[val] += 1
+        return
+    m = (l + r) // 2
+    if i in range(l, m + 1):
+        update(node.left, i, val, oldVal, l, m)
+    else:
+        update(node.right, i, val, oldVal, m + 1, r)
+    node.val[oldVal] -= 1
+    node.val[val] += 1
+
+
+# 3. query
+def query(node, L, R, l, r):
+    if r < L or l > R:
+        return [0] * 6
+    if l >= L and r <= R:
+        return node.val
+
+    m = (l + r) // 2
+    a = query(node.left, L, R, l, m)
+    b = query(node.right, L, R, m + 1, r)
+    val = [0] * 6
+    for i in range(6):
+        val[i] += a[i]
+        val[i] += b[i]
+    return val
+'''
 
 
 # discarded codes

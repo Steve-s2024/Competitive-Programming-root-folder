@@ -19,6 +19,7 @@ def build(p):
         if p[i] == p[length]:
             length += 1
             lps[i] = length
+    print(lps)
     return lps
 
 

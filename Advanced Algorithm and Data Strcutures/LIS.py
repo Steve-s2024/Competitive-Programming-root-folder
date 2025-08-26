@@ -1,5 +1,4 @@
-# pretty interesting algorithm, but I don't fully understand
-# why it works.
+# pretty interesting algorithm
 
 # this implementation only find the length of the LIS, not the actual LIS
 def LIS(nums):

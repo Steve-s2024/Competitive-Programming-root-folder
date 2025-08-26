@@ -1,4 +1,4 @@
-# fk man I crashed this question. confident lost from D is all back
+# fk man I crushed this question. confident lost from D is all back
 from collections import defaultdict, deque, Counter
 import heapq, math
 import sys
