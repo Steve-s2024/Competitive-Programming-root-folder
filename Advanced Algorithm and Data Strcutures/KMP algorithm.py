@@ -42,3 +42,29 @@ check("aabcadaabe", "z")
 check("aabcadaabe", "a")
 check("aabcadaabe", "ad")
 check("aabcadaabe", "adaabe")
+
+
+
+
+# 2025/08/26
+# here is another conpact implementation of KMP that returns an array of intervals that represent all the occurrence of
+# s2 in s1
+def kmp(s1, s2):
+    n, m = len(s1), len(s2)
+    lps = [0] * m
+    l = 0
+    for i in range(1, m):
+        while s2[i] != s2[l] and l: l = lps[l - 1]
+        if s2[i] == s2[l]:
+            l += 1
+            lps[i] = l
+    res = []
+    l = 0
+    for i in range(n):
+        while s1[i] != s2[l] and l: l = lps[l - 1]
+        if s1[i] == s2[l]:
+            l += 1
+            if l == m:
+                res.append((i - l + 1, i))
+                l = lps[l - 1]
+    return res

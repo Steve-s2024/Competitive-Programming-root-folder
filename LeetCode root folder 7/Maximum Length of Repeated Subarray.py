@@ -1,12 +1,7 @@
-from collections import defaultdict, deque, Counter
-from typing import List
-from sortedcontainers import SortedList, SortedSet
-import heapq, sys
-from math import gcd, lcm, inf, sqrt
-from functools import cache
-sys.setrecursionlimit(1 << 15)
-
-
+# don't know how, but the unusual knapsack solution work with one pass haha...: 5%
+# this is clearly a way to find the longest continuous part of two array, which means
+# you can actually use this to do string matching, it will only return the length though, which
+# KMP can do better not to mention the time complexity difference.
 class Solution:
     def findLength(self, nums1: List[int], nums2: List[int]) -> int:
         n, m = len(nums1), len(nums2)
@@ -22,4 +17,5 @@ class Solution:
                 a = recursive(i+1, j+1)+1
                 dp[i][j] = max(a, dp[i][j])
             return dp[i][j]
-        return recursive(0, 0)
+        recursive(0, 0)
+        return max(e for row in dp for e in row)

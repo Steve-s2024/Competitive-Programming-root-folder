@@ -30,7 +30,7 @@ class Solution:
 
 
 # solution no.1, backtracking:
-# NeetCode I Love U. I woudn't be able to solve this in my life if it weren't because of you!
+# NeetCode I Love U. I wouldn't be able to solve this in my life if it weren't because of you!
 # this is the brute-force solution, I also have the dp solution below
 '''
 class Solution:

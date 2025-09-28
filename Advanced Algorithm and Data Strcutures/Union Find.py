@@ -9,18 +9,11 @@ class UnionFind:
         self.parent = list(range(n))
         self.size = [1]*n
 
-    # the find function doesn't click, so I make this variation, they have the exactly same effect.
     def find(self, x):
         if x == self.parent[x]:
             return x
         self.parent[x] = self.find(self.parent[x])
         return self.parent[x]
-
-
-    # def find(self, x):
-    #     if x != self.parent[x]:
-    #         self.parent[x] = self.find(self.parent[x])
-    #     return self.parent[x]
 
     def union(self, x, y):
         x = self.find(x)
