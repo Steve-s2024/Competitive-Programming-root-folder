@@ -3,7 +3,7 @@
 # complexity: O(V+E)
 from collections import deque
 
-# take in g (adjacency list) and n (number of nodes), return the diameter of the tree
+# take in g (lists of child node of each node) and n (number of nodes), return the diameter of the tree
 def bfs(g, n):
     deg = [len(r) for r in g]
     vis = [0] * n

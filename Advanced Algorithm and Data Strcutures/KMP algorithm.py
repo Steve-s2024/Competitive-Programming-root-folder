@@ -47,7 +47,7 @@ check("aabcadaabe", "adaabe")
 
 
 # 2025/08/26
-# here is another conpact implementation of KMP that returns an array of intervals that represent all the occurrence of
+# here is another compact implementation of KMP that returns an array of intervals that represent all the occurrence of
 # s2 in s1
 def kmp(s1, s2):
     n, m = len(s1), len(s2)

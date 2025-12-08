@@ -1,14 +1,4 @@
-import sys
-from collections import defaultdict, deque, Counter
-from typing import List
-from heapq import heapify, heappush, heappop
-# from sortedcontainers import sortedlist
-from math import gcd, lcm, inf, sqrt, floor, ceil
-from functools import cache
-import math
-from sys import stdout
-from itertools import permutations
-
+# bit brute force backtracking solution
 class Solution:
     def removeInvalidParentheses(self, s: str) -> List[str]:
         mp = defaultdict(list)
@@ -20,7 +10,7 @@ class Solution:
                 return
             if s[i] in '()':
                 recursive(i+1, ct)
-                stk.append('(')
+                stk.append(s[i])
                 recursive(i+1, ct+(1 if s[i] == '(' else -1))
                 stk.pop()
             else:
@@ -28,4 +18,5 @@ class Solution:
                 recursive(i+1, ct)
                 stk.pop()
         recursive(0, 0)
-        print(mp)
+        # print(mp)
+        return list(set(mp[max(mp.keys())]))

@@ -1,15 +1,15 @@
 # very interesting property of set theory, efficiently compute the size of the union of multiple sets
-# time complexity: 2^n where n is the number of sets in the union operation.
+# time complexity: 2^m where m is the number of sets in the union operation.
 # there could be an extra computation per each recursive call, such as the example below where we need to calculate the
 # lcm of the stk array each time, which may affect the time complexity
 
 # here is an implementation of the PIE in finding all number i between 1 and n inclusive that are divisible by either
-# 3, 5, or 7
-def findMultipleOfNums(self, n: int) -> int:
-    ref = [3, 5, 7]
+# factors in ref
+from math import lcm
+def findMultipleOfNums(n: int) -> int:
+    ref = [2,7,13,19]
     m = len(ref)
     stk = []
-
     def recursive(i):
         nonlocal m
         size = len(stk)
@@ -29,3 +29,6 @@ def findMultipleOfNums(self, n: int) -> int:
         return res
 
     return recursive(0)
+
+
+print(findMultipleOfNums(12))
