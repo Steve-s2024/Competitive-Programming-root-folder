@@ -1,3 +1,20 @@
+# 01/06/2025 UPD: I think I have an idea of how to optimize the enumerating over submask of the current mask
+# now it is 2^n iteration per each function call, where n is the bit count of current mask, since we enumerate over all submask
+# however, we actually only need to enumerate over all the submask which is 1 bit count less, this means we only iterate
+# n times per each function call, and since that is all the possible way to generate submask (if we treat by generate submask only 1 bit
+# can be removed at a time), than this DP over submask can be much more efficient.
+# clarification: I choose DP over submask with one less bit count and know this is enough. Why? because when doing DP over choices
+# we only care about the transition to sub-problem, doesn't matter how much easier the sub-problem we are transferring to.
+# by transferring to 1 bit less submask, we gain a lot efficiency even though the sub-problem themselves didn't become much easier
+# (which really doesn't matter as long as it is indeed transitioning to an easier subproblem instead of the same problem or a harder super problem).
+
+# side note: this idea is theoretically sound but does not apply universally, doublecheck the DP state transition before using this idea.
+
+
+
+
+
+
 # a program for the trick of iterating through all the subset of a mask represented set
 n = 4
 for i in range(1<<n):

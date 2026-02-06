@@ -1,3 +1,37 @@
+from heapq import heappush, heappop
+# 2026-01-12 first time ever save the day by this code (Codeforces Round 1072 (Div. 3) E), lazy tree could not beat it
+# (with a few modification I changed it into interval with weight)
+
+def merge(arr):
+    arr = arr[:]
+    arr.sort(key=lambda i: i[0])
+    arr.append([inf, inf, inf])
+    minHeap = []
+    intervals = []
+    weights = []
+    L, R, _ = arr[0]
+    sm = 0
+    for l, r, w in arr:
+        while minHeap and minHeap[0][0] < l:
+            R, W = heappop(minHeap)
+            sm -= W
+            if L <= R:
+                weights.append(sm + W)
+                intervals.append((L, R))
+            L = R + 1
+        if l > L:
+            weights.append(sm)
+            intervals.append((L, l - 1))
+        L = l
+        heappush(minHeap, (r, w))
+        sm += w
+
+    intervals.pop()
+    weights.pop()
+    # print(intervals, weights)
+    return intervals, weights
+
+
 import heapq
 
 

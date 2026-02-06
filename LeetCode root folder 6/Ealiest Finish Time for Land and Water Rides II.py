@@ -1,4 +1,4 @@
-# pretty simple question for a Q3, but I and too impatient end up make a mistake and cost me one WA
+# pretty simple question for a Q3, but I am too impatient end up make a mistake and cost me one WA
 class Solution:
     def earliestFinishTime(self, landStartTime: List[int], landDuration: List[int], waterStartTime: List[int], waterDuration: List[int]) -> int:
         n, m = len(landStartTime), len(waterDuration)

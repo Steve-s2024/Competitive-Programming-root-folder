@@ -1,3 +1,70 @@
+# 2026/01/04 a better, more efficient version of seg-tree. implemented by array in replacement of actual tree
+# same complexity for init, update, and query. simpler update/query interface (parameter simplified)
+# functional, verified via LeetCode submission
+# (motivation for upgrade: need a more concise code for later lazy seg-tree implementation)
+class SumTree:
+    def __init__(self, ar):
+        n = len(ar)
+        tre = [0]*((1<<n.bit_length())-1 + n)
+        self.tre, self.n = tre, n
+        for i in range(n): self.update(i, ar[i])
+
+    def update(self, i, v):
+        tre, n = self.tre, self.n
+        l, r = 0, (1<<n.bit_length())-1
+        j, ar = 0, []
+        while l < r:
+            ar.append(j)
+            m = (l+r)//2
+            if i <= m: j, r = 2*j+1, m
+            else: j, l = 2*j+2, m+1
+        dif = v-tre[j]
+        tre[j] = v
+        for j in ar: tre[j] += dif
+
+    def query(self, L, R):
+        tre, n = self.tre, self.n
+        res = 0
+        def recursive(j, l, r):
+            nonlocal L, R, res
+            if r < L or l > R or l > r: return
+            if L <= l and r <= R:
+                res += tre[j]
+                return
+            m = (l+r)//2
+            recursive(2*j+1, l, m)
+            recursive(2*j+2, m+1, r)
+        recursive(0, 0, (1<<n.bit_length())-1)
+        return res
+
+nums = [1, 2, 3, 4, 5]
+st = SumTree(nums)
+print(st.tre)
+print(st.query(0, 3))
+print(st.query(2, 4))
+for i in range(0, 3): st.update(i, nums[i]+2)
+print(st.query(0, 3))
+print(st.query(2, 4))
+print(st.query(1, 4))
+for i in range(3, 5): st.update(i, nums[i]-2)
+print(st.query(0, 3))
+print(st.query(2, 4))
+print(st.query(1, 4))
+
+'''
+st = SumTree([1, 2, 3, 4, 5])
+print(st.query(0, 3))
+print(st.query(2, 4))
+print(st.query(1, 4))
+st.update(0, 3)
+st.update(4, 3)
+print(st.query(0, 3))
+print(st.query(2, 4))
+print(st.query(1, 4))
+'''
+
+
+
 # building my own segment tree build, query, update function for querying maximum value inside range
 
 from collections import deque
