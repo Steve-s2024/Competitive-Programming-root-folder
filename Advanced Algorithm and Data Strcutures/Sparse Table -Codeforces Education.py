@@ -1,4 +1,19 @@
 from math import inf, ceil, floor, sqrt, gcd, lcm
+# a compact revision of sparse table
+class maxSparseTable():
+    def __init__(self, nums):
+        n, sp, pw = len(nums), [nums[:]], 2
+        while pw <= n:
+            tmp = []
+            for i in range(0, n - pw + 1): tmp.append(max(sp[-1][i], sp[-1][i + pw // 2]))
+            sp.append(tmp)
+            pw *= 2
+        self.sp = sp
+
+    def query(self, l, r):
+        sp, ln = self.sp, (r - l + 1).bit_length()
+        return max(sp[ln - 1][l], sp[ln - 1][r - pow(2, ln - 1) + 1])
+
 
 # a more generic version of the sparse table
 class minSparseTable():
