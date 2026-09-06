@@ -1,3 +1,112 @@
+# lazy tree for min tree, credit to Chatgpt
+class LazyMinTree:
+    def __init__(self, nums):
+        self.n = len(nums)
+        self.tree = [float('inf')] * (4 * self.n)
+        self.lazy = [0] * (4 * self.n)
+
+        def build(node, l, r):
+            if l == r:
+                self.tree[node] = nums[l]
+                return
+
+            mid = (l + r) // 2
+            build(node * 2, l, mid)
+            build(node * 2 + 1, mid + 1, r)
+
+            self.tree[node] = min(
+                self.tree[node * 2],
+                self.tree[node * 2 + 1]
+            )
+
+        if self.n:
+            build(1, 0, self.n - 1)
+
+    def _push(self, node):
+        x = self.lazy[node]
+        if x == 0:
+            return
+
+        left = node * 2
+        right = node * 2 + 1
+
+        self.tree[left] += x
+        self.tree[right] += x
+
+        self.lazy[left] += x
+        self.lazy[right] += x
+
+        self.lazy[node] = 0
+
+    def update(self, L, R, x):
+        """Add x to every nums[i] for L <= i <= R."""
+
+        def dfs(node, l, r):
+            if R < l or r < L:
+                return
+
+            if L <= l and r <= R:
+                self.tree[node] += x
+                self.lazy[node] += x
+                return
+
+            self._push(node)
+
+            mid = (l + r) // 2
+            dfs(node * 2, l, mid)
+            dfs(node * 2 + 1, mid + 1, r)
+
+            self.tree[node] = min(
+                self.tree[node * 2],
+                self.tree[node * 2 + 1]
+            )
+
+        dfs(1, 0, self.n - 1)
+
+    def query(self, L, R):
+        """Return min(nums[L:R+1])."""
+
+        def dfs(node, l, r):
+            if R < l or r < L:
+                return float('inf')
+
+            if L <= l and r <= R:
+                return self.tree[node]
+
+            self._push(node)
+
+            mid = (l + r) // 2
+            return min(
+                dfs(node * 2, l, mid),
+                dfs(node * 2 + 1, mid + 1, r)
+            )
+
+        return dfs(1, 0, self.n - 1)
+
+
+nums = [5, 2, 7, 3, 8]
+
+st = LazyMinTree(nums)
+
+print(st.query(0, 4))   # 2
+print(st.query(2, 4))   # 3
+
+st.update(1, 3, 4)
+# [5, 6, 11, 7, 8]
+
+print(st.query(0, 4))   # 5
+print(st.query(1, 3))   # 6
+
+st.update(0, 2, -3)
+# [2, 3, 8, 7, 8]
+
+print(st.query(0, 4))   # 2
+
+exit()
+
+
+
+
 # a lazy tree variation handling binary array "flipping range update" (flip a range of element from 0 to 1 or from 1 to 0)
 class LazyTree:
     def __init__(self, ar):

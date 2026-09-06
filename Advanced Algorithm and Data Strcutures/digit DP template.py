@@ -1,4 +1,23 @@
-# not very generic digit DP template, modify it if can
+# template for left and right bound (tested by LC testcases)
+def dp(l, r) -> int:
+    r = str(r)
+    n = len(r)
+    l = str(l).zfill(n)
+    @cache
+    def fn(i, lf, hf):
+        lw = 0 if not lf else int(l[i])
+        hi = 9 if not hf else int(r[i])
+        res = 0
+        for j in range(lw, hi + 1):
+            res += fn(i + 1, lf and j == lw, hf and j == hi)
+        return res
+
+    res = fn(0,1, 1)
+    fn.cache_clear()
+    return res
+
+
+    # not very generic digit DP template, modify it if can
 def digitDP(self, n: int) -> int:
     s = str(n)
     @cache

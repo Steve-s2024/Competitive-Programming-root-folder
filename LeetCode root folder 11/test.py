@@ -1,4 +1,5 @@
 from collections import defaultdict, deque, Counter
+from random import shuffle
 from typing import List
 from heapq import heapify, heappush, heappop
 # from sortedcontainers import SortedList
@@ -10,5 +11,13 @@ from bisect import bisect_left, bisect_right
 
 
 
+def solve():
+    n = int(input())
+    s = input()
+    nums = [int(x) for x in input().split()]
+    cost = [int(x) for x in input().split()]
 
 
+
+
+for _ in range(int(input())): solve()
