@@ -1,3 +1,42 @@
+# Credit by ChatGPT, an optimized implementation of segment tree (roughly twice as faster than before). verified by codeforces testcases
+class SumTree:
+    def __init__(self, nums):
+        n = len(nums)
+        self.n = n
+        self.tree = [0] * (2 * n)
+        self.tree[n:] = nums
+        for i in range(n - 1, 0, -1):
+            self.tree[i] = self.tree[i << 1] + self.tree[i << 1 | 1]
+
+    def update(self, i, val):
+        tree = self.tree
+        i += self.n
+        tree[i] = val
+        while i > 1:
+            i >>= 1
+            tree[i] = tree[i << 1] + tree[i << 1 | 1]
+
+    def query(self, left, right):
+        tree = self.tree
+        n = self.n
+        left, right = left+n, right+ n+1
+        res = 0
+
+        while left < right:
+            if left & 1:
+                res += tree[left]
+                left += 1
+            if right & 1:
+                right -= 1
+                res += tree[right]
+            left, right = left>>1, right>>1
+        return res
+
+
+
+
+
+
 # find method O(logn), finds the position of the first element less than the given parameter "x".
 # it is giving the same time complexity to locate relative (to "x") extreme value. with the array sorted, it
 # functions identical to a regular binary search, but it can do what BS can't: search on unordered array.
