@@ -2,7 +2,7 @@
 
 
 # modulo operation identity
-# for any a, b, M: (a*b)%(a*M) = (b%M)*a
+# for any a, b, M: (a*b)%(a*M) = (b%M)*a     (similar to the distributive property of multiplication)
 # this identity is conceptually proving the fact that common factor of left and right operands of modular operation
 # can be taken out of % and multiply at the end.
 # inversely, it is saying that one can play with the formula: q%p = r into (cq)%(cp) = cr
